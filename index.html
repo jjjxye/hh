@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>齐鲁非遗·咱俩关系</title>
+    <style>
+        /* 保持原有样式不变 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+        /* 设置选项按钮字体为宋体 */
+        .option-btn {
+            font-family: "SimSun", "宋体", serif;
+        }
+        body {
+            width: 100%;
+            min-height: 100vh;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #ffe8d6 0%, #f9dcc4 25%, #fec89a 50%, #fcd5ce 75%, #f8edeb 100%);
+            position: relative;
+            overflow-x: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20,20 Q35,5 50,20 T80,20 Q95,35 80,50 T80,80 Q65,95 50,80 T20,80 Q5,65 20,50 T20,20 Z' fill='rgba(255,222,173,0.2)' /%3E%3Cpath d='M30,30 Q45,15 60,30 T90,30 Q105,45 90,60 T90,90 Q75,105 60,90 T30,90 Q15,75 30,60 T30,30 Z' fill='rgba(255,182,193,0.2)' /%3E%3C/svg%3E");
+            -webkit-text-size-adjust: none; /* 防止iOS缩放字体 */
+            -webkit-touch-callout: none; /* 禁止长按菜单 */
+            -webkit-user-select: none; /* 禁止文本选择 */
+        }
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            border: 1px solid #d4b886;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px 16px;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.9);
+            max-width: 768px; /* 限制最大宽度，在大屏幕上也保持良好布局 */
+            margin: 0 auto;
+        }
+        /* 关系选择页背景 - 渐变加花卉图案 */
+        #relationSelect {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30,30 Q40,10 60,30 T90,30 Q110,40 90,60 T90,90 Q100,110 80,90 T50,90 Q30,110 50,70 T30,30 Z' fill='rgba(255,255,255,0.3)' /%3E%3C/svg%3E");
+        }
+        /* 闺蜜题目页背景 - 渐变加花卉图案 */
+        #girlPage {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30,30 Q40,10 60,30 T90,30 Q110,40 90,60 T90,90 Q100,110 80,90 T50,90 Q30,110 50,70 T30,30 Z' fill='rgba(255,255,255,0.3)' /%3E%3C/svg%3E");
+        }
+        /* 情侣题目页背景 - 渐变加花卉图案 */
+        #couplePage {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30,30 Q40,10 60,30 T90,30 Q110,40 90,60 T90,90 Q100,110 80,90 T50,90 Q30,110 50,70 T30,30 Z' fill='rgba(255,255,255,0.3)' /%3E%3C/svg%3E");
+        }
+        /* 兄弟题目页背景 - 渐变加几何图案 */
+        #brotherPage {
+            background: linear-gradient(135deg, #3a86ff 0%, #8338ec 100%);
+            background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30,30 Q40,10 60,30 T90,30 Q110,40 90,60 T90,90 Q100,110 80,90 T50,90 Q30,110 50,70 T30,30 Z' fill='rgba(255,255,255,0.3)' /%3E%3C/svg%3E");
+        }
+        /* 结果展示页背景 - 渐变加花卉图案 */
+        #resultPage {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30,30 Q40,10 60,30 T90,30 Q110,40 90,60 T90,90 Q100,110 80,90 T50,90 Q30,110 50,70 T30,30 Z' fill='rgba(255,255,255,0.3)' /%3E%3C/svg%3E");
+        }
+        /* 非遗详情页背景 - 渐变加花卉图案 */
+        #introdPage {
+    .heritage-image-container {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+    }
+    .heritage-image {
+        max-width: 100%;
+        height: 300px;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30,30 Q40,10 60,30 T90,30 Q110,40 90,60 T90,90 Q100,110 80,90 T50,90 Q30,110 50,70 T30,30 Z' fill='rgba(255,255,255,0.3)' /%3E%3C/svg%3E");
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .title {
+            font-family: "Ma Shan Zheng", cursive;
+            font-size: 28px;
+            color: #c8102e;
+            margin-bottom: 8px;
+        }
+        .progress {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #8b4513;
+        }
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #d4b886;
+            margin: 0 6px;
+        }
+        .progress-dot.active {
+            background: #c8102e;
+            box-shadow: 0 0 8px #ff6b8b;
+        }
+        .relation-select {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 60px;
+        }
+        .relation-btn {
+            height: 60px;
+            background: linear-gradient(135deg, #fff0f3, #ffe0e8);
+            border: 2px solid #ff6b8b;
+            border-radius: 30px;
+            font-size: 20px;
+            color: #c8102e;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .relation-btn:hover {
+            background: linear-gradient(135deg, #ff6b8b, #c8102e);
+            color: #fff;
+        }
+        .question-page {
+            display: none;
+            min-height: calc(100vh - 120px);
+            flex-direction: column;
+        }
+        .question-header {
+            margin-bottom: 20px;
+        }
+        /* 调整关键文本样式以确保清晰可见 */
+        .question-title {
+            font-size: 22px; /* 增大标题字体 */
+            color: #6a3921; /* 更深的颜色提高对比度 */
+            margin-bottom: 12px;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.5); /* 添加轻微阴影提高可读性 */
+        }
+        .question-desc {
+            font-size: 18px; /* 增大描述字体 */
+            color: #5c4033;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.5);
+        }
+        .option-btn {
+            height: auto;
+            min-height: 80px; /* 增加按钮高度 */
+            background: rgba(255,255,255,0.9); /* 增加背景不透明度 */
+            border: 2px solid #d4b886;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            font-size: 18px; /* 增大选项字体 */
+            color: #8b4513;
+            font-family: "SimSun", "宋体", serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.8);
+            width: 90%;
+            max-width: 500px;
+            margin: 0 auto 15px auto;
+            white-space: normal; /* 允许文字换行 */
+            word-wrap: break-word; /* 长单词换行 */
+            -webkit-tap-highlight-color: rgba(0,0,0,0.2); /* iOS点击高亮 */
+        }
+        .option-btn::before {
+            content: attr(data-option);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #d4b886;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        /* 为有颜色背景的按钮调整文字颜色以提高对比度 */
+        .option-btn.couple-B, .option-btn.girl-B, .option-btn.brother-B {
+            color: #333;
+        }
+        .option-btn.couple-A { background: #FFB11B; border-color: #2E86AB; }
+        .option-btn.couple-B { background: linear-gradient(135deg, #A7B5D6, #F2F4F7); border-color: #A7B5D6; }
+        .option-btn.couple-C { background: #C7000B; color: #fff; border-color: #0F0F0F; }
+        .option-btn.couple-D { background: linear-gradient(135deg, #4E7A51, #FF9A3D); color: #fff; border-color: #4E7A51; }
+        .option-btn.girl-A { background: #FF005C; color: #fff; border-color: #FFD700; }
+        .option-btn.girl-B { background: linear-gradient(135deg, #A7B5D6, #F2F4F7); border-color: #A7B5D6; }
+        .option-btn.girl-C { background: #F6F2EA; border-color: #A7C4C2; }
+        .option-btn.girl-D { background: linear-gradient(135deg, #4E7A51, #FF9A3D); color: #fff; border-color: #4E7A51; }
+        /* 兄弟组选项样式 */
+        .option-btn.brother-A { background: #3a86ff; color: #fff; border-color: #8338ec; }
+        .option-btn.brother-B { background: linear-gradient(135deg, #A7B5D6, #F2F4F7); border-color: #A7B5D6; }
+        .option-btn.brother-C { background: #8338ec; color: #fff; border-color: #3a86ff; }
+        .option-btn.brother-D { background: linear-gradient(135deg, #228B22, #CD853F); color: #fff; border-color: #228B22; }
+        
+        .option-btn.selected {
+            box-shadow: 0 0 12px rgba(255,107,139,0.8);
+        }
+        .option-btn.selected::before {
+            background: #ff6b8b;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            padding-bottom: 20px;
+            width: 100%;
+        }
+        .nav-btn {
+            width: 120px;
+            height: 44px;
+            background: #c8102e;
+            color: #fff;
+            border: none;
+            border-radius: 22px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            -webkit-tap-highlight-color: rgba(0,0,0,0.2); /* iOS点击高亮 */
+        }
+        .nav-btn.prev {
+            background: #d4b886;
+        }
+        .nav-btn.submit {
+            background: linear-gradient(135deg, #ff6b8b, #c8102e);
+            display: none;
+        }
+        .result-page {
+            display: none;
+            text-align: center;
+            padding-top: 30px;
+            min-height: 100vh;
+        }
+        .poster-container {
+            width: 100%;
+            height: 400px;
+            border-radius: 12px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 18px;
+            padding: 20px;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+        .poster-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .score {
+            font-size: 48px;
+            color: #c8102e;
+            font-weight: 600;
+            margin: 10px 0;
+            font-family: "Ma Shan Zheng", cursive;
+        }
+        .result-title {
+            font-size: 24px;
+            color: #8b4513;
+            margin-bottom: 16px;
+            font-family: "Ma Shan Zheng", cursive;
+        }
+        .result-desc {
+            font-size: 16px;
+            color: #5c4033;
+            line-height: 1.6;
+            margin: 0 10px;
+        }
+        .非遗-mark {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #8b4033;
+            font-style: italic;
+        }
+        .generate-btn {
+            width: 200px;
+            height: 50px;
+            background: linear-gradient(135deg, #FFB11B, #2E86AB);
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            margin: 20px auto;
+            cursor: pointer;
+            -webkit-tap-highlight-color: rgba(0,0,0,0.2); /* iOS点击高亮 */
+        }
+        .introd-page {
+            display: none;
+            padding-top: 20px;
+            min-height: 100vh;
+        }
+        .introd-title {
+            font-size: 22px;
+            color: #c8102e;
+            text-align: center;
+            margin-bottom: 16px;
+            font-family: "Ma Shan Zheng", cursive;
+        }
+        .video-container {
+            width: 100%;
+            height: 200px;
+            background: #000;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .introd-desc {
+            font-size: 16px;
+            color: #5c4033;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .buy-link {
+            display: block;
+            width: 100%;
+            height: 50px;
+            background: #c8102e;
+            color: #fff;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 18px;
+            margin-top: 20px;
+            -webkit-tap-highlight-color: rgba(0,0,0,0.2); /* iOS点击高亮 */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .question-page, .result-page, .introd-page {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        /* 媒体查询 - 移动设备适配 */
+        @media (max-width: 768px) {
+            /* 基础样式调整 */
+            .container {
+                padding: 15px 10px;
+            }
+            
+            /* 标题样式调整 */
+            .title {
+                font-size: 24px !important; /* 重要性标记确保覆盖 */
+            }
+            
+            /* 题目样式调整 */
+            .question-title {
+                font-size: 20px !important;
+                margin-bottom: 10px;
+            }
+            .question-desc {
+                font-size: 16px !important;
+                line-height: 1.5;
+            }
+            
+            /* 选项按钮调整 */
+            .option-btn {
+                min-height: 70px;
+                font-size: 16px !important;
+                padding: 15px 10px;
+                margin-bottom: 12px;
+                width: 95%;
+            }
+            .option-btn::before {
+                width: 24px;
+                height: 24px;
+                font-size: 14px;
+                margin-right: 10px;
+            }
+            
+            /* 导航按钮调整 */
+            .nav-btn {
+                width: 100px;
+                height: 40px;
+                font-size: 14px;
+            }
+            
+            /* 结果页样式调整 */
+            .poster-container {
+                height: 280px !important;
+                margin: 15px 0;
+                padding: 15px;
+            }
+            .score {
+                font-size: 40px !important;
+            }
+            .result-title {
+                font-size: 22px !important;
+            }
+            .result-desc {
+                font-size: 15px !important;
+                margin: 0 8px;
+            }
+            
+            /* 生成按钮调整 */
+            .generate-btn {
+                width: 180px;
+                height: 46px;
+                font-size: 16px;
+                margin: 15px auto;
+            }
+            
+            /* 非遗详情页调整 */
+            .introd-title {
+                font-size: 20px !important;
+            }
+            .video-container {
+                height: 160px !important;
+                margin: 15px 0;
+            }
+            .introd-desc {
+                font-size: 15px !important;
+                line-height: 1.5;
+            }
+            .buy-link {
+                height: 46px;
+                line-height: 46px;
+                font-size: 16px;
+                margin-top: 15px;
+            }
+        }
+        
+        /* 媒体查询 - 小屏幕手机适配 */
+        @media (max-width: 480px) {
+            /* 进一步缩小字体和间距 */
+            .title {
+                font-size: 22px !important;
+            }
+            .question-title {
+                font-size: 18px !important;
+            }
+            .question-desc {
+                font-size: 15px !important;
+            }
+            .option-btn {
+                min-height: 65px;
+                font-size: 15px !important;
+                padding: 12px 8px;
+            }
+            .poster-container {
+                height: 240px !important;
+            }
+            .introd-desc {
+                font-size: 14px !important;
+                line-height: 1.4;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部标题区 -->
+        <div class="header">
+            <h1 class="title">齐鲁非遗·咱俩关系</h1>
+            <div class="progress">
+                <span class="progress-dot active"></span>
+                <span class="progress-dot"></span>
+                <span class="progress-dot"></span>
+                <span class="progress-dot"></span>
+                <span class="progress-dot"></span>
+            </div>
+        </div>
+
+        <!-- 关系选择页 -->
+        <div class="relation-select" id="relationSelect">
+            <button class="relation-btn" data-relation="girl">闺蜜关系</button>
+            <button class="relation-btn" data-relation="couple">情侣关系</button>
+            <button class="relation-btn" data-relation="brother">兄弟关系</button>
+        </div>
+
+        <!-- 兄弟题目页 -->
+        <div class="question-page" id="brotherPage">
+            <!-- 题目内容 -->
+            <div class="question" data-index="1">
+                <div class="question-header">
+                    <h2 class="question-title">第一题：关于「一起放松」</h2>
+                    <p class="question-desc">久违的周末，你们几个好兄弟约着见面，最常选择的放松方式是？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn brother-A" data-option="A" data-poster="活力型 | 主色赛场红 #D62728 + 荧光橙 #FFA500，粗黑运动线条，元素「篮球/足球轨迹动态描边」，版式「赛场记分牌式分区」">组个球局，篮球、足球，在球场上挥汗如雨，用胜负说话</button>
+                    <button class="option-btn brother-B" data-option="B" data-poster="烟火型 | 主色炭火棕 #8B4513 + 啤酒金 #FFD700，肌理「烤串焦痕质感」，元素「冒泡啤酒杯GIF」，版式「大排档桌面俯视角」">找个大排档或小酒馆，点上烤串啤酒，天南地北地胡侃</button>
+                    <button class="option-btn brother-C" data-option="C" data-poster="协作型 | 主色电竞黑 #121212 + 霓虹蓝 #00BFFF，发光像素边框，元素「游戏技能按键悬浮排列」，版式「游戏界面仿拟布局」">一起开黑打游戏，在虚拟世界里并肩作战，默契配合</button>
+                    <button class="option-btn brother-D" data-option="D" data-poster="自然型 | 主色草木绿 #228B22 + 泥土黄 #CD853F，材质「粗麻布纹理」，元素「鱼竿/帐篷简笔线稿」，版式「户外风景留白构图」">开车去郊外，钓鱼、爬山或者露营，享受自然和宁静</button>
+                </div>
+            </div>
+            <div class="question" data-index="2" style="display:none;">
+                <div class="question-header">
+                    <h2 class="question-title">第二题：关于「遇到困难」</h2>
+                    <p class="question-desc">你生活中遇到一个不小的难题（比如工作瓶颈、经济紧张），你的兄弟知道后会怎么做？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn brother-A" data-option="A" data-poster="实干型 | 主色工具银 #C0C0C0 + 工装蓝 #003366，金属拉丝质感，元素「扳手/钱袋极简图标」，版式「居中对称信息块」">二话不说，直接问你"还差多少？"或者"需要我做什么？"，提供实际帮助</button>
+                    <button class="option-btn brother-B" data-option="B" data-poster="陪伴型 | 主色酒杯琥珀 #DAA520 + 阴影灰 #696969，模糊光斑背景，元素「碰杯剪影」，版式「左右分栏对话式」">把你叫出来，陪你喝一顿，听你倒苦水，最后拍拍肩膀说"没事，都能过去"</button>
+                    <button class="option-btn brother-C" data-option="C" data-poster="理性型 | 主色图纸蓝 #4682B4 + 铅笔灰 #A9A9A9，网格线底纹，元素「分析流程图」，版式「清单式条目排版」">用他自己的经验，帮你冷静分析利弊，给出几条具体的建议</button>
+                    <button class="option-btn brother-D" data-option="D" data-poster="豁达型 | 主色漫画黄 #FFFF00 + 墨黑 #000000，夸张笔触边框，元素「搞笑表情包式插画」，版式「不规则拼接布局」">用开玩笑的方式调侃你，帮你把这件事看轻看淡，告诉你"这都不是事儿"</button>
+                </div>
+            </div>
+            <div class="question" data-index="3" style="display:none;">
+                <div class="question-header">
+                    <h2 class="question-title">第三题：关于「庆祝时刻」</h2>
+                    <p class="question-desc">你的兄弟取得了重大成就（比如升职、创业成功），你们会如何为他庆祝？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn brother-A" data-option="A" data-poster="传统型 | 主色宴席红 #B22222 + 餐具金 #FFD700，祥云暗纹，元素「酒坛/餐盘对称排列」，版式「圆桌俯视构图」">必须摆一桌"狠"的，上好酒，不醉不归，用最传统热烈的方式表达高兴</button>
+                    <button class="option-btn brother-B" data-option="B" data-poster="质感型 | 主色礼盒黑 #000000 + 丝带银 #E6E6FA，哑光材质，元素「打开的礼盒高光效果」，版式「居中聚焦式设计」">送他一份有分量、能拿得出手的礼物，比如一款他心仪已久的高端电子产品</button>
+                    <button class="option-btn brother-C" data-option="C" data-poster="冒险型 | 主色公路灰 #808080 + 夕阳橙 #FF7F50，地图线条底纹，元素「汽车/登山杖动态轨迹」，版式「路线图式时间轴」">组织一次男人的旅行，比如自驾、徒步，在旅程中创造新的传奇</button>
+                    <button class="option-btn brother-D" data-option="D" data-poster="简约型 | 主色红包红 #FF0000 + 微信绿 #7BB32E，扁平化图标，元素「红包炸开动态效果」，版式「聊天界面仿拟布局」">可能没有隆重的仪式，但会在群里发个大红包，并真心说一句"牛逼，兄弟！"</button>
+                </div>
+            </div>
+            <div class="question" data-index="4" style="display:none;">
+                <div class="question-header">
+                    <h2 class="question-title">第四题：关于「出现摩擦」</h2>
+                    <p class="question-desc">因为一件事观点不同，你和兄弟发生了争执，甚至有点上头说了重话，你会如何收场？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn brother-A" data-option="A" data-poster="直接型 | 主色烟盒白 #F5F5F5 + 饮料绿 #32CD32，写实质感，元素「香烟/饮料瓶并列」，版式「左右对称极简构图」">过一会儿主动找他，递根烟或开瓶饮料，说"刚才我冲动了"，事情就算翻篇</button>
+                    <button class="option-btn brother-B" data-option="B" data-poster="轻松型 | 主色群聊白 #FFFFFF + 表情包彩 #FF69B4，碎片化拼接背景，元素「动态表情包截图」，版式「不规则网格排版」">在兄弟群里发个搞笑表情包，或者@他问个无关紧要的事，自然地把话接上</button>
+                    <button class="option-btn brother-C" data-option="C" data-poster="互动型 | 主色运动绿 #008000 + 对抗红 #FF0000，赛场线条底纹，元素「打球/游戏动作剪影」，版式「左右对抗式布局」">下次见面直接约他打球或游戏，在对抗和合作中自然而然地和解</button>
+                    <button class="option-btn brother-D" data-option="D" data-poster="佛系型 | 主色淡灰 #F5F5F5 + 浅蓝 #87CEEB，模糊渐变背景，元素「缓慢飘动的云朵」，版式「大留白居中排版」">让其他朋友传个话，或者等一段时间，让事情自然冷却，相信兄弟不会真往心里去</button>
+                </div>
+            </div>
+            <div class="question" data-index="5" style="display:none;">
+                <div class="question-header">
+                    <h2 class="question-title">第五题：关于「长久的维系」</h2>
+                    <p class="question-desc">大家成家立业，相聚越来越少，但你觉得维系兄弟情义最核心的是什么？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn brother-A" data-option="A" data-poster="担当型 | 主色礼服黑 #000000 + 胸花红 #FF0000，正式场合暗纹，元素「握手/撑场剪影」，版式「庄重对称构图」">关键时刻的力挺：无论红白喜事，或是需要人撑场面时，他一定在场</button>
+                    <button class="option-btn brother-B" data-option="B" data-poster="默契型 | 主色电话灰 #D3D3D3 + 声波蓝 #87CEEB，声波线条底纹，元素「电话听筒简笔画」，版式「左右对话式布局」">无需言说的默契：即便一年不联系，一个电话打过去，也能直奔主题，毫无生疏</button>
+                    <button class="option-btn brother-C" data-option="C" data-poster="共鸣型 | 主色球队红 #FF0000 + 游戏蓝 #0000FF，球迷/游戏元素拼贴，版式「多元素网格排版」">共同的热爱：依然会关注同一支球队，喜欢同一款游戏，有永远聊不完的共同话题</button>
+                    <button class="option-btn brother-D" data-option="D" data-poster="信任型 | 主色合同白 #FFFFFF + 印章红 #FF0000，法律条文底纹，元素「握手签约剪影」，版式「正式文档式布局」">利益的信任：可以在生意上合作，或在金钱上互助，有超越普通朋友的信任基础</button>
+                </div>
+            </div>
+            
+            <!-- 导航按钮 -->
+            <div class="nav">
+                <button class="nav-btn prev" id="prevBtn">上一题</button>
+                <button class="nav-btn next" id="nextBtn">下一题</button>
+                <button class="nav-btn submit" id="submitBtn">提交答案</button>
+            </div>
+        </div>
+        
+        <!-- 闺蜜题目页 -->
+        <div class="question-page" id="girlPage">
+            <!-- 题目内容保持不变 -->
+            <div class="question" data-index="1">
+                <div class="question-header">
+                    <h2 class="question-title">第一题：关于「倾诉心事」</h2>
+                    <p class="question-desc">当你遇到一件非常委屈或难过的事情，你第一个想向朋友倾诉时，你们最典型的模式是？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn girl-A" data-option="A" data-poster="红金撞色×剪纸放射，把你的热闹友情贴上门窗——全世界都能听见你们的笑声！">立刻打电话或视频，边哭边骂，ta在对面一起愤慨，帮你出谋划策。</button>
+                    <button class="option-btn girl-B" data-option="B" data-poster="雾霾蓝渐变×亚麻纹理，像一条永远晒不干却最柔软的毛巾，擦干你所有情绪。">发一串长语音或文字，ta不会立刻回复，但会在忙完后一条条认真回应，给你理性的分析和贴心的安慰。</button>
+                    <button class="option-btn girl-C" data-option="C" data-poster="陶米白+天青双渐层，手作转轮在海报中心旋转——你们的默契，自己就能把自己烧制成器。">约出来见面，Nothing，什么用多说，一个拥抱、一杯奶茶，陪你在街上漫无目的地走。</button>
+                    <button class="option-btn girl-D" data-option="D" data-poster="露营绿×篝火橙对称铺开，骰子与帐篷成排——你们的友情，先点火再掷点，直接开玩！">ta会直接冲到你家，带上你爱吃的零食，或者帮你处理好一件你无暇顾及的琐事。</button>
+                </div>
+            </div>
+            <div class="question" data-index="2" style="display:none;">
+                <div class="question-header">
+                    <h2 class="question-title">第二题：关于「生日庆祝」</h2>
+                    <p class="question-desc">好朋友生日快到了，你会为ta准备什么样的惊喜？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn girl-A" data-option="A" data-poster="红金撞色×剪纸放射，把你的热闹友情贴上门窗——全世界都能听见你们的笑声！">组织一场盛大的生日派对，邀请所有共同朋友，准备精心布置和热闹游戏。</button>
+                    <button class="option-btn girl-B" data-option="B" data-poster="雾霾蓝渐变×亚麻纹理，像一条永远晒不干却最柔软的毛巾，擦干你所有情绪。">亲手制作一份有意义的礼物，比如一本记录你们回忆的相册或手工编织品。</button>
+                    <button class="option-btn girl-C" data-option="C" data-poster="陶米白+天青双渐层，手作转轮在海报中心旋转——你们的默契，自己就能把自己烧制成器。">悄悄安排一次你们一直想去但没机会去的短途旅行，给ta一个浪漫的惊喜。</button>
+                    <button class="option-btn girl-D" data-option="D" data-poster="露营绿×篝火橙对称铺开，骰子与帐篷成排——你们的友情，先点火再掷点，直接开玩！">带ta去体验一项刺激的活动，比如蹦极、跳伞或密室逃脱，创造难忘回忆。</button>
+                </div>
+            </div>
+            <div class="question" data-index="3" style="display:none;">
+                <div class="question-header">
+                    <h2 class="question-title">第三题：关于「矛盾处理」</h2>
+                    <p class="question-desc">当你们之间产生了小矛盾或误解时，通常会如何解决？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn girl-A" data-option="A" data-poster="红金撞色×剪纸放射，把你的热闹友情贴上门窗——全世界都能听见你们的笑声！">直接摊开来说清楚，哪怕当时情绪激动，但说开了就翻篇。</button>
+                    <button class="option-btn girl-B" data-option="B" data-poster="雾霾蓝渐变×亚麻纹理，像一条永远晒不干却最柔软的毛巾，擦干你所有情绪。">冷静一段时间，等双方都平静下来再慢慢沟通，避免冲动说出伤人的话。</button>
+                    <button class="option-btn girl-C" data-option="C" data-poster="陶米白+天青双渐层，手作转轮在海报中心旋转——你们的默契，自己就能把自己烧制成器。">用一些小举动表达和好的意愿，比如分享一首歌、送一杯奶茶，自然化解尴尬。</button>
+                    <button class="option-btn girl-D" data-option="D" data-poster="露营绿×篝火橙对称铺开，骰子与帐篷成排——你们的友情，先点火再掷点，直接开玩！">一起去做一件开心的事，在愉快的氛围中不知不觉和使用好了，不会意外提起矛盾。</button>
+                </div>
+            </div>
+            <div class="question" data-index="4" style="display:none;">
+                <div class="question-header">
+                    <h2 class="question-title">第四题：关于「共同爱好」</h2>
+                    <p class="question-desc">你们最喜欢一起做的事情是什么？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn girl-A" data-option="A" data-poster="红金撞色×剪纸放射，把你的热闹友情贴上门窗——全世界都能听见你们的笑声！">逛街购物、尝试新餐厅，一起体验城市里的新鲜事物。</button>
+                    <button class="option-btn girl-B" data-option="B" data-poster="雾霾蓝渐变×亚麻纹理，像一条永远晒不干却最柔软的毛巾，擦干你所有情绪。">宅在家里看电影、追剧，分享彼此的小心事和感想。</button>
+                    <button class="option-btn girl-C" data-option="C" data-poster="陶米白+天青双渐层，手作转轮在海报中心旋转——你们的默契，自己就能把自己烧制成器。">一起参加一些文艺活动，比如看展览、听音乐会，互相分享对艺术的感受。</button>
+                    <button class="option-btn girl-D" data-option="D" data-poster="露营绿×篝火橙对称铺开，骰子与帐篷成排——你们的友情，先点火再掷点，直接开玩！">进行户外活动，比如爬山、骑行、露营，在大自然中放松身心。</button>
+                </div>
+            </div>
+            <div class="question" data-index="5" style="display:none;">
+                <div class="question-header">
+                    <h2 class="question-title">第五题：关于「未来规划」</h2>
+                    <p class="question-desc">当聊到未来的生活计划时，你们会？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn girl-A" data-option="A" data-poster="红金撞色×剪纸放射，把你的热闹友情贴上门窗——全世界都能听见你们的笑声！">兴奋地讨论各种可能性，比如一起旅游、创业，甚至计划以后做邻居。</button>
+                    <button class="option-btn girl-B" data-option="B" data-poster="雾霾蓝渐变×亚麻纹理，像一条永远晒不干却最柔软的毛巾，擦干你所有情绪。">认真倾听对方的想法，给予鼓励和建议，希望对方能实现自己的梦想。</button>
+                    <button class="option-btn girl-C" data-option="C" data-poster="陶米白+天青双渐层，手作转轮在海报中心旋转——你们的默契，自己就能把自己烧制成器。">默默把对方的需求考虑进自己的计划，希望彼此的未来都能互相参与。</button>
+                    <button class="option-btn girl-D" data-option="D" data-poster="露营绿×篝火橙对称铺开，骰子与帐篷成排——你们的友情，先点火再掷点，直接开玩！">觉得未来还很遥远，更享受当下在一起的时光，相信友情能经得起时间的考验。</button>
+                </div>
+            </div>
+            <div class="nav">
+                <button class="nav-btn prev" disabled>上一题</button>
+                <button class="nav-btn next">下一题</button>
+                <button class="nav-btn submit">提交答案</button>
+            </div>
+        </div>
+
+        <!-- 情侣题目页 -->
+        <div class="question-page" id="couplePage">
+            <!-- 题目内容保持不变 -->
+            <div class="question" data-index="1">
+                <div class="question-header">
+                    <h2 class="question-title">第一题：关于「周末计划」</h2>
+                    <p class="question-desc">一个难得的双休周末，你们都想好好放松一下。这时，你们会如何安排？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn couple-A" data-option="A" data-poster="「掐丝珐琅·九宫格」鸡油黄+钴蓝金丝，金属对称时间轴，爱情像被掐进景泰蓝格子，每一格都闪着计划的光。">提前做好详细攻略，打卡网红景点，把行程安排得丰富又充实。</button>
+                    <button class="option-btn couple-B" data-option="B" data-poster="「中药香囊·针织」雾霾蓝→月白+小布袋，亚麻纹理+草药淡香，爱情就是晒过太阳的被子，软到心底还带药香。">随性所致，可能宅家追剧做饭，也可能临时起意去公园散步，享受在一起的慵懒时光。</button>
+                    <button class="option-btn couple-C" data-option="C" data-poster="「大漆·旋转」漆器红+黑金流线，手工旋转纹理，一起把爱情刷成层层光，连吵架也只是让爱情更亮。">选择一起参加一个手工体验课，比如陶艺、烘焙，在协作中创造共同回忆。</button>
+                    <button class="option-btn couple-D" data-option="D" data-poster="「鱼灯笼·对称」露营绿+篝火橙，鱼鳞透光+得分条，爱情在郊外炭火里亮成一条会发光的鱼。">叫上共同的好朋友，组织一场桌游或短途露营，让爱情融入友情的热闹。</button>
+                </div>
+            </div>
+            <div class="question" data-index="2" style="display:none;">
+                <div class="question-header">
+                    <h2 class="question-title">第二题：关于「纪念日」</h2>
+                    <p class="question-desc">重要的纪念日（比如恋爱周年）快到了，你们会如何庆祝？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn couple-A" data-option="A" data-poster="「掐丝珐琅·九宫格」鸡油黄+钴蓝金丝，金属对称时间轴，爱情像被掐进景泰蓝格子，每一格都闪着计划的光。">精心准备一场浪漫的约会，从鲜花礼物到晚餐地点都提前规划好，希望给对方一个完美的回忆。</button>
+                    <button class="option-btn couple-B" data-option="B" data-poster="「中药香囊·针织」雾霾蓝→月白+小布袋，亚麻纹理+草药淡香，爱情就是晒过太阳的被子，软到心底还带药香。">觉得纪念日不必太过刻意，两个人在一起简单吃顿饭、聊聊天，真诚表达爱意就足够。</button>
+                    <button class="option-btn couple-C" data-option="C" data-poster="「大漆·旋转」漆器红+黑金流线，手工旋转纹理，一起把爱情刷成层层光，连吵架也只是让爱情更亮。">共同完成一件有意义的事情，比如一起种植一棵树、制作一本纪念相册，或者一起做一顿复杂的料理。</button>
+                    <button class="option-btn couple-D" data-option="D" data-poster="「鱼灯笼·对称」露营绿+篝火橙，鱼鳞透光+得分条，爱情在郊外炭火里亮成一条会发光的鱼。">策划一次特别的体验，比如去游乐园、看演唱会或短途旅行，让纪念日充满惊喜和欢乐。</button>
+                </div>
+            </div>
+            <div class="question" data-index="3" style="display:none;">
+                <div class="question-header">
+                    <h2 class="question-title">第三题：关于「矛盾争吵」</h2>
+                    <p class="question-desc">当你们因为意见不合而发生争吵时，通常会如何处理？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn couple-A" data-option="A" data-poster="「掐丝珐琅·九宫格」鸡油黄+钴蓝金丝，金属对称时间轴，爱情像被掐进景泰蓝格子，每一格都闪着计划的光。">坦诚表达自己的感受和想法，希望能彻底解决问题，避免以后再发生类似的矛盾。</button>
+                    <button class="option-btn couple-B" data-option="B" data-poster="「中药香囊·针织」雾霾蓝→月白+小布袋，亚麻纹理+草药淡香，爱情就是晒过太阳的被子，软到心底还带药香。">先冷静下来，等情绪平复后再心平气和地沟通，避免在冲动时说出伤害对方的话。</button>
+                    <button class="option-btn couple-C" data-option="C" data-poster="「大漆·旋转」漆器红+黑金流线，手工旋转纹理，一起把爱情刷成层层光，连吵架也只是让爱情更亮。">通过一些温暖的举动表达和解的意愿，比如主动做家务、准备对方爱吃的食物，然后再慢慢沟通。</button>
+                    <button class="option-btn couple-D" data-option="D" data-poster="「鱼灯笼·对称」露营绿+篝火橙，鱼鳞透光+得分条，爱情在郊外炭火里亮成一条会发光的鱼。">选择暂时放下矛盾，一起去做一些开心的事情，等心情好的时候再自然地讨论问题。</button>
+                </div>
+            </div>
+            <div class="question" data-index="4" style="display:none;">
+                <div class="question-header">
+                    <h2 class="question-title">第四题：关于「共同目标」</h2>
+                    <p class="question-desc">你们有共同的生活目标或梦想吗？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn couple-A" data-option="A" data-poster="「掐丝珐琅·九宫格」鸡油黄+钴蓝金丝，金属对称时间轴，爱情像被掐进景泰蓝格子，每一格都闪着计划的光。">有明确的共同目标，比如存钱买房、一起创业，并且会制定详细的计划一步步实现。</button>
+                    <button class="option-btn couple-B" data-option="B" data-poster="「中药香囊·针织」雾霾蓝→月白+小布袋，亚麻纹理+草药淡香，爱情就是晒过太阳的被子，软到心底还带药香。">尊重彼此的个人目标，在后台默默支持对方，同时享受以下的的生活。</button>
+                    <button class="option-btn couple-C" data-option="C" data-poster="「大漆·旋转」漆器红+黑金流线，手工旋转纹理，一起把爱情刷成层层光，连吵架也只是让爱情更亮。">会一起探讨未来的可能性，在相互理解的基础上调整自己的计划，尽量让两个人的目标协调一致。</button>
+                    <button class="option-btn couple-D" data-option="D" data-poster="「鱼灯笼·对称」露营绿+篝火橙，鱼鳞透光+得分条，爱情在郊外炭火里亮成一条会发光的鱼。">觉得不必给自己太多压力，更看重两个人相处的过程，相信船到桥头自然直。</button>
+                </div>
+            </div>
+            <div class="question" data-index="5" style="display:none;">
+                <div class="question-header">
+                    <h2 class="question-title">第五题：关于「爱情表达」</h2>
+                    <p class="question-desc">你们更倾向于如何表达对彼此的爱？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn couple-A" data-option="A" data-poster="「掐丝珐琅·九宫格」鸡油黄+钴蓝金丝，金属对称时间轴，爱情像被掐进景泰蓝格子，每一格都闪着计划的光。">直接而热烈地表达，经常说「我爱你」，送礼物、制造惊喜，让对方时刻感受到被爱。</button>
+                    <button class="option-btn couple-B" data-option="B" data-poster="「中药香囊·针织」雾霾蓝→月白+小布袋，亚麻纹理+草药淡香，爱情就是晒过太阳的被子，软到心底还带药香。">通过日常的关心和照顾表达爱意，比如做对方爱吃的菜、提醒对方增减衣物，用行动代替语言。</button>
+                    <button class="option-btn couple-C" data-option="C" data-poster="「大漆·旋转」漆器红+黑金流线，手工旋转纹理，一起把爱情刷成层层光，连吵架也只是让爱情更亮。">在重要的时刻表达深情，会认真倾听对方的想法，尊重对方的意见，给予充分的信任和支持。</button>
+                    <button class="option-btn couple-D" data-option="D" data-poster="「鱼灯笼·对称」露营绿+篝火橙，鱼鳞透光+得分条，爱情在郊外炭火里亮成一条会发光的鱼。">喜欢和对方一起玩乐，在轻松愉快的氛围中增进感情，通过分享快乐来表达爱意。</button>
+                </div>
+            </div>
+            <div class="nav">
+                <button class="nav-btn prev" disabled>上一题</button>
+                <button class="nav-btn next">下一题</button>
+                <button class="nav-btn submit">提交答案</button>
+            </div>
+        </div>
+
+        <div class="result-page" id="resultPage">
+            <h2 class="result-title">你们的专属非遗关系</h2>
+            <div class="poster-container" id="posterContainer">
+                点击下方按钮生成专属非遗海报
+            </div>
+            <p class="result-desc" id="resultDesc">等待生成专属海报...</p>
+            <p class="非遗-mark" id="heritageMark">非遗灵感：待生成</p>
+            <button class="generate-btn" id="generateBtn">生成AI海报</button>
+            <button class="nav-btn" id="toIntrodBtn" style="display:none; margin:10px auto;">查看非遗详情</button>
+        </div>
+
+        <!-- 非遗详情页 -->
+        <div class="introd-page" id="introdPage">
+            <h2 class="introd-title" id="introdTitle">非遗产品详情</h2>
+            <div class="video-container" id="videoContainer">
+                <!-- 视频将在这里动态加载 -->
+            </div>
+            <p class="introd-desc" id="introdDesc">
+                这里将展示对应非遗产品的详细介绍，包括历史渊源、工艺特点、文化意义等内容...
+            </p>
+            <a href="" class="buy-link" id="buyLink" target="_blank">点击前往淘宝购买</a>
+            <button class="nav-btn" style="margin:20px auto;" id="backBtn">返回结果页</button>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量
+        let currentRelation = '';
+        let currentQuestion = 1;
+        let selectedOptions = [];
+        let finalPosterDesc = '';
+        // 非遗物品对应关系表
+        const heritageItems = {
+            "剪纸": "传统剪纸艺术品",
+            "鲁绣": "刺绣工艺品",
+            "淄ebra": "彩色透明陶器",
+            "风筝": "传统风筝",
+            "大漆": "传统大漆工艺品",
+            "草编": "传统草编工艺品",
+            "螺钿": "螺钿镶嵌工艺品",
+            "烧箔画": "传统烧箔画艺术品",
+            "掐丝珐琅": "彩色珐琅工艺品",
+            "中药香囊": "刺绣小布袋（内含草药）",
+            "大漆": "漆器工艺品",
+            "鱼灯笼": "鱼形传统灯笼"
+        };
+        // 更新非遗信息，使用文本链接格式
+        let heritageInfo = {
+            // 闺蜜组非遗信息
+            girl: {
+                A: { 
+                    name: "山东剪纸", 
+                    desc: "山东剪纸，节庆装饰，寓意吉祥欢乐，说明热辣而又厚重的友谊。", 
+                    video: "https://v.douyin.com/IzywWbFmQKA",  // 文本链接格式
+                    link: "https://taobao.com/girl-A" 
+                },
+                B: { 
+                    name: "鲁绣", 
+                    desc: "鲁绣是山东传统刺绣工艺，以亚麻为底，针织纹理细腻柔软，绣品兼具实用与装饰性，象征温柔治愈的情感。", 
+                    video: "https://v.douyin.com/tbNXxjeUuoU",  // 文本链接格式
+                    link: "https://taobao.com/girl-B" 
+                },
+                C: { 
+                    name: "淄博陶瓷", 
+                    desc: "淄博陶瓷是中国古老的传统工艺，以其精湛的技艺和绚丽的色彩闻名于世。陶瓷的制作过程需要高温熔炼和工匠的巧妙塑形，最终才能形成光彩夺目的成品。这种历经淬炼而绽放光彩的特性，正如同情侣之间的爱情，经过生活的磨砺和考验，才能愈发珍贵和美丽。陶瓷通透的质感也象征着爱情的纯粹和坦诚。", 
+                    video: "https://v.douyin.com/8kpzxGSe7E8",  // 文本链接格式
+                    link: "https://taobao.com/girl-C" 
+                },
+                D: { 
+                    name: "潍坊风筝", 
+                    desc: "山东潍坊风筝历史悠久，对称设计兼具观赏性与放飞性，象征友情的热闹与自由。", 
+                    video: "https://v.douyin.com/dce1y6rY2m0",  // 文本链接格式
+                    link: "https://taobao.com/girl-D" 
+                }
+            },
+            // 情侣组非遗信息
+            couple: {
+                A: { 
+                    name: "掐丝珐琅", 
+                    desc: "掐丝珐琅是传统工艺，金属对称时间轴设计，象征爱情的规划与长久。", 
+                    video: "https://v.douyin.com/_8B8q3xmqsg",  // 文本链接格式
+                    link: "https://taobao.com/couple-A" 
+                },
+                B: { 
+                    name: "中药香囊", 
+                    desc: "山东中药香囊以亚麻为袋，内置草药，散发淡香，寓意爱情的温馨与治愈，兼具安神保健功效。", 
+                    video: "https://v.douyin.com/gLqkizpF-E4",  // 文本链接格式
+                    link: "https://taobao.com/couple-B" 
+                },
+                C: { 
+                    name: "大漆", 
+                    desc: "大漆工艺，通过层层涂刷抛光制成，象征爱情历经打磨越发坚韧闪亮。", 
+                    video: "https://v.douyin.com/bCyu9a3_L_I",  // 文本链接格式
+                    link: "https://taobao.com/couple-C" 
+                },
+                D: { 
+                    name: "鱼灯笼", 
+                    desc: "山东鱼灯笼，鱼鳞透光设计，象征爱情在热闹中绽放光芒，寓意吉祥美好。", 
+                    video: "https://v.douyin.com/vhgmMLIzdeg",  // 文本链接格式
+                    link: "https://taobao.com/couple-D" 
+                }
+            },
+            // 兄弟组非遗信息
+            brother: {
+                A: {
+                    name: "大漆",
+                    desc: "大漆裹木，层叠是岁月的沉；兄弟援手，实打实是情义的真。大漆工艺是中国传统的髹饰工艺，有着数百年的历史。大漆制品以其独特的质感、深沉的色调和耐久的特性而著称，象征着兄弟之间坚实可靠的情谊。",
+                    video: "https://v.douyin.com/bCyu9a3_L_I",  // 文本链接格式
+                    link: "https://taobao.com/brother-A",
+                    image: "大漆.jpg"
+                },
+                B: {
+                    name: "草编",
+                    desc: "草编绕指，松而不散是默契；兄弟对坐，话少心近是温情。草编是中国传统手工艺，以柔韧的草本植物为原料，经过巧妙编织而成。草编作品自然质朴、坚韧耐用，象征着兄弟之间松弛温情的默契。",
+                    video: "https://v.douyin.com/Vpb6lZ4JPO8/",  // 文本链接格式
+                    link: "https://taobao.com/brother-B",
+                    image: "草编.jpg"
+                },
+                C: {
+                    name: "螺钿",
+                    desc: "螺钿拼花，相映成辉是协作；兄弟同好，话题不断是共鸣。螺钿是一种传统镶嵌工艺，将贝壳薄片镶嵌在器物表面，形成精美图案。螺钿作品流光溢彩、层次丰富，象征着兄弟之间协作共鸣的特质。",
+                    video: "https://v.douyin.com/atk9WF5t0qk/",  // 文本链接格式
+                    link: "https://taobao.com/brother-C",
+                    image: "螺钿.jpg"
+                },
+                D: {
+                    name: "烧箔画",
+                    desc: "烧箔留金，去繁就简是豁达；兄弟互信，坦诚相待是真心。烧箔画是一种独特的传统工艺，通过灼烧金箔创造出富有层次感的画面。烧箔画作品简洁利落、纯粹豁达，象征着兄弟之间坦诚相待的真心。",
+                    video: "https://v.douyin.com/m3QVrpoLj38/",  // 文本链接格式
+                    link: "https://taobao.com/brother-D",
+                    image: "烧箔画.jpg"
+                }
+            }
+        };
+
+        // 生成随机字符串函数，确保每次海报不同
+        function generateRandomString(length = 8) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+
+        // 关系选择
+        document.querySelectorAll('.relation-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentRelation = btn.dataset.relation;
+                document.getElementById('relationSelect').style.display = 'none';
+                document.getElementById(`${currentRelation}Page`).style.display = 'flex';
+            });
+        });
+
+        // 选项选择
+        document.querySelectorAll('.option-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const parent = btn.parentElement;
+                parent.querySelectorAll('.option-btn').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                btn.classList.add('selected');
+                const qIndex = currentQuestion;
+                selectedOptions[qIndex] = {
+                    option: btn.dataset.option,
+                    poster: btn.dataset.poster
+                };
+            });
+        });
+
+        // 导航按钮
+        document.querySelectorAll('.next').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (!selectedOptions[currentQuestion]) {
+                    alert('请选择一个选项');
+                    return;
+                }
+                const currentPage = document.getElementById(`${currentRelation}Page`);
+                currentPage.querySelectorAll('.question').forEach(q => {
+                    if (q.dataset.index == currentQuestion) {
+                        q.style.display = 'none';
+                    }
+                });
+                document.querySelectorAll('.progress-dot')[currentQuestion - 1].classList.remove('active');
+                currentQuestion++;
+                document.querySelectorAll('.progress-dot')[currentQuestion - 1].classList.add('active');
+                currentPage.querySelectorAll('.question').forEach(q => {
+                    if (q.dataset.index == currentQuestion) {
+                        q.style.display = 'block';
+                    }
+                });
+                if (currentQuestion === 5) {
+                    btn.style.display = 'none';
+                    btn.nextElementSibling.style.display = 'block';
+                }
+                const prevBtn = btn.parentElement.querySelector('.prev');
+                prevBtn.disabled = false;
+                prevBtn.style.backgroundColor = '#c8102e';
+            });
+        });
+
+        document.querySelectorAll('.prev').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (currentQuestion > 1) {
+                    const currentPage = document.getElementById(`${currentRelation}Page`);
+                    currentPage.querySelectorAll('.question').forEach(q => {
+                        if (q.dataset.index == currentQuestion) {
+                            q.style.display = 'none';
+                        }
+                    });
+                    document.querySelectorAll('.progress-dot')[currentQuestion - 1].classList.remove('active');
+                    currentQuestion--;
+                    document.querySelectorAll('.progress-dot')[currentQuestion - 1].classList.add('active');
+                    currentPage.querySelectorAll('.question').forEach(q => {
+                        if (q.dataset.index == currentQuestion) {
+                            q.style.display = 'block';
+                        }
+                    });
+                    const submitBtn = btn.nextElementSibling.nextElementSibling;
+                    const nextBtn = btn.nextElementSibling;
+                    if (currentQuestion < 5) {
+                        nextBtn.style.display = 'block';
+                        submitBtn.style.display = 'none';
+                    }
+                    if (currentQuestion === 1) {
+                        btn.disabled = true;
+                        btn.style.backgroundColor = '#d4b886';
+                    }
+                }
+            });
+        });
+
+        // 提交答案
+        document.querySelectorAll('.submit').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (!selectedOptions[5]) {
+                    alert('请选择最后一题选项');
+                    return;
+                }
+                const optionCount = { A: 0, B: 0, C: 0, D: 0 };
+                for (let i = 1; i <= 5; i++) {
+                    const opt = selectedOptions[i].option;
+                    optionCount[opt]++;
+                }
+                let maxOpt = Object.keys(optionCount).sort((a, b) => optionCount[b] - optionCount[a])[0];
+                finalPosterDesc = selectedOptions.find(item => item && item.option === maxOpt)?.poster || finalPosterDesc;
+                document.getElementById(`${currentRelation}Page`).style.display = 'none';
+                document.getElementById('resultPage').style.display = 'block';
+                // 设置非遗金句，不显示海报描述
+                const heritage = heritageInfo[currentRelation][maxOpt];
+                let heritageQuote = heritage.name;
+                if (currentRelation === 'brother') {
+                    if (heritage.name === '大漆') heritageQuote = '大漆裹木，层叠是岁月的沉；兄弟援手，实打实是情义的真。';
+                    else if (heritage.name === '草编') heritageQuote = '草编绕指，松而不散是默契；兄弟对坐，话少心近是温情。';
+                    else if (heritage.name === '螺钿') heritageQuote = '螺钿拼花，相映成辉是协作；兄弟同好，话题不断是共鸣。';
+                    else if (heritage.name === '烧箔画') heritageQuote = '烧箔留金，去繁就简是豁达；兄弟互信，坦诚相待是真心。';
+                }
+                document.getElementById('resultDesc').textContent = heritageQuote;
+                document.getElementById('heritageMark').textContent = heritage.name;
+                document.getElementById('toIntrodBtn').style.display = 'none'; // 不显示查看详情按钮
+            });
+        });
+
+        // 生成AI海报按钮点击事件 - 使用火山方舟API
+        document.getElementById('generateBtn').addEventListener('click', async () => {
+            const optionCount = { A: 0, B: 0, C: 0, D: 0 };
+            for (let i = 1; i <= 5; i++) {
+                const opt = selectedOptions[i].option;
+                optionCount[opt]++;
+            }
+            const maxOpt = Object.keys(optionCount).sort((a, b) => optionCount[b] - optionCount[a])[0];
+            const heritage = heritageInfo[currentRelation][maxOpt];
+            const posterDesc = selectedOptions.find(item => item && item.option === maxOpt)?.poster || finalPosterDesc;
+            
+            // 获取AI可理解的非遗物品名称
+            const aiFriendlyItem = heritageItems[heritage.name];
+            
+            // 设置非遗金句
+            let heritageQuote = heritage.name;
+            if (currentRelation === 'brother') {
+                if (heritage.name === '大漆') heritageQuote = '大漆裹木，层叠是岁月的沉；兄弟援手，实打实是情义的真。';
+                else if (heritage.name === '草编') heritageQuote = '草编绕指，松而不散是默契；兄弟对坐，话少心近是温情。';
+                else if (heritage.name === '螺钿') heritageQuote = '螺钿拼花，相映成辉是协作；兄弟同好，话题不断是共鸣。';
+                else if (heritage.name === '烧箔画') heritageQuote = '烧箔留金，去繁就简是豁达；兄弟互信，坦诚相待是真心。';
+            }
+            document.getElementById('heritageMark').textContent = `非遗金句：${heritageQuote}`;
+            
+            // 根据海报描述提取色彩信息
+            let colorPalette = getColorPaletteFromPosterDesc(posterDesc);
+            
+            // 根据非遗类型选择合适的艺术风格
+            let artStyle = getArtStyleForHeritage(heritage.name);
+            
+            // 构建精准的AI提示词，重点强调非遗纹样和多样化色彩风格
+            const theme = currentRelation === 'girl' ? '闺蜜友情' : (currentRelation === 'couple' ? '情侣爱情' : '兄弟情义');
+            const prompt = `
+            生成一张符合以下要求的关系海报：
+            1. 主题：${theme}
+            2. 艺术风格：${artStyle} - 色彩丰富多样，视觉冲击力强
+            3. 核心元素：必须包含${aiFriendlyItem}（山东非遗工艺的具象化物品），需清晰展现其形态特点和传统纹样
+            4. 视觉风格：${posterDesc}
+            5. 色彩：采用${colorPalette}，要求色彩鲜明、对比强烈，能够突出主题和视觉风格
+            6. 氛围：体现亲密关系的温暖感，同时突出非遗物品的传统趣味和现代审美
+            7. 构图：富有创意和动感，非遗物品需作为视觉焦点之一
+            8. 细节：注重非遗物品的纹理和细节表现，增强视觉质感
+            9. 整体效果：要求画面精美、色彩丰富、风格多样，同时保持整体协调统一
+            `;
+            
+            // 默认显示备用海报方案，同时在后台尝试AI生成
+            generateFallbackPoster(heritage, posterDesc);
+            
+            // 在后台尝试调用火山方舟AI API生成海报，不阻塞用户体验
+            (async () => {
+                try {
+                    console.log('开始在后台调用火山方舟AI生成海报...');
+                    console.log('当前使用的API URL:', 'https://ark.cn-beijing.volces.com/api/v3/images/generations');
+                    console.log('使用的API Key状态:', !!callArkAIAPI.toString().match(/apiKey[^']+'([^']+)'/)[1]);
+                    
+                    const result = await callArkAIAPI(prompt);
+                    
+                    // 如果AI生成成功，更新海报显示
+                    document.getElementById('posterContainer').innerHTML = `
+                        <div style="position:relative;width:100%;height:100%;">
+                            <!-- 火山方舟AI生成的海报 -->
+                            <img src="${result.data[0].url}" alt="专属非遗关系海报" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
+                            <!-- 火山方舟AI生成标识 -->
+                            <div style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.5);color:white;padding:5px 10px;border-radius:10px;font-size:12px;">
+                                火山方舟AI生成
+                            </div>
+                            <!-- 非遗产品标识 -->
+                            <div style="position:absolute;top:20px;left:20px;background:linear-gradient(135deg,#c8102e,#8a1a2c);color:white;padding:10px 20px;border-radius:20px;font-weight:bold;">
+                                ${heritage.name}
+                            </div>
+                        </div>
+                    `;
+                    
+                    console.log('AI海报生成成功并已更新显示');
+                } catch (error) {
+                    console.error('后台API调用失败:', error);
+                    // 这里可以选择添加一个提示，告知用户AI生成失败，但已经使用备用方案
+                    // 为了不打扰用户体验，我们不显示这个提示
+                }
+            })();
+        });
+        
+        // 备用海报生成函数 - 基于预定义模板
+        function generateFallbackPoster(heritage, posterDesc) {
+            const currentRelationType = currentRelation === 'girl' ? '闺蜜' : (currentRelation === 'couple' ? '情侣' : '兄弟');
+            
+            // 丰富的色彩库和对应的非遗风格
+            const heritageStyles = {
+                '剪纸': {
+                    bg: 'linear-gradient(135deg, #fff0f3, #ffcccb, #ffafcc)',
+                    border: '#c8102e',
+                    accent: '#ff6b8b',
+                    pattern: 'dots',
+                    description: '红金撞色×剪纸放射'
+                },
+                '鲁绣': {
+                    bg: 'linear-gradient(135deg, #e0c3fc, #8ec5fc)',
+                    border: '#8a1a2c',
+                    accent: '#6d5dfc',
+                    pattern: 'lines',
+                    description: '蓝渐变×鲁绣纹理'
+                },
+                '淄博陶瓷': {
+                    bg: 'linear-gradient(135deg, #fff8dc, #f0e68c, #faebd7)',
+                    border: '#d4b886',
+                    accent: '#cd853f',
+                    pattern: 'circles',
+                    description: '陶米白+天青双渐层'
+                },
+                '潍坊风筝': {
+                    bg: 'linear-gradient(135deg, #e6f7ff, #bae7ff, #91d5ff)',
+                    border: '#4E7A51',
+                    accent: '#52c41a',
+                    pattern: 'waves',
+                    description: '青绿渐变×风筝纹样'
+                },
+                '掐丝珐琅': {
+                    bg: 'linear-gradient(135deg, #fff7e6, #fff1d6, #ffd966)',
+                    border: '#FFB11B',
+                    accent: '#fa8c16',
+                    pattern: 'grid',
+                    description: '金箔黄×珐琅彩'
+                },
+                '中药香囊': {
+                    bg: 'linear-gradient(135deg, #f6ffed, #d9f7be, #b7eb8f)',
+                    border: '#2E86AB',
+                    accent: '#1890ff',
+                    pattern: 'dots',
+                    description: '翠绿×药香意境'
+                },
+                '大漆': {
+                    bg: 'linear-gradient(135deg, #fff2f0, #ffccc7, #ffa39e)',
+                    border: '#C7000B',
+                    accent: '#ff4d4f',
+                    pattern: 'brush',
+                    description: '大漆红×裂纹肌理'
+                },
+                '鱼灯笼': {
+                    bg: 'linear-gradient(135deg, #e6f7ff, #91d5ff, #40a9ff)',
+                    border: '#8fd3f4',
+                    accent: '#0050b3',
+                    pattern: 'fish',
+                    description: '鱼鳞透光×灯笼轮廓'
+                },
+                '草编': {
+                    bg: 'linear-gradient(135deg, #f6ffed, #e6f7ff, #fff7e6)',
+                    border: '#9B7B6B',
+                    accent: '#8B4513',
+                    pattern: 'lines',
+                    description: '草编棕×米白渐变'
+                },
+                '螺钿': {
+                    bg: 'linear-gradient(135deg, #f0f2f5, #fff7e6, #e6f7ff)',
+                    border: '#E6E6FA',
+                    accent: '#000000',
+                    pattern: 'grid',
+                    description: '螺钿银×墨黑对比'
+                },
+                '烧箔画': {
+                    bg: 'linear-gradient(135deg, #fff7e6, #f5f5f5, #f0f2f5)',
+                    border: '#333333',
+                    accent: '#FFD700',
+                    pattern: 'dots',
+                    description: '烧箔金×炭黑渐变'
+                }
+            };
+            
+            // 获取当前非遗类型的样式
+            const style = heritageStyles[heritage.name] || {
+                bg: 'linear-gradient(135deg, #f0f2f5, #e6f7ff, #f6ffed)',
+                border: '#d4b886',
+                accent: '#8b4513',
+                pattern: 'dots'
+            };
+            
+            // 根据海报描述进一步丰富样式
+            let bgColor = style.bg;
+            let accentColor = style.accent;
+            
+            // 如果海报描述中包含特定颜色关键词，优先使用
+            if (posterDesc.includes('红金')) {
+                bgColor = 'linear-gradient(135deg, #fff1f0, #ffccc7, #ffd666)';
+                accentColor = '#ff6b8b';
+            } else if (posterDesc.includes('蓝渐变')) {
+                bgColor = 'linear-gradient(135deg, #e6f7ff, #bae7ff, #91d5ff)';
+                accentColor = '#1890ff';
+            } else if (posterDesc.includes('陶米白')) {
+                bgColor = 'linear-gradient(135deg, #fff8dc, #f0e68c, #faebd7)';
+                accentColor = '#cd853f';
+            } else if (posterDesc.includes('绿×橙')) {
+                bgColor = 'linear-gradient(135deg, #f6ffed, #d9f7be, #fff7e6)';
+                accentColor = '#73d13d';
+            }
+            
+            // 创建装饰图案
+            let decorationPattern = '';
+            if (style.pattern === 'dots') {
+                decorationPattern = generateDotPattern();
+            } else if (style.pattern === 'lines') {
+                decorationPattern = generateLinePattern();
+            } else if (style.pattern === 'circles') {
+                decorationPattern = generateCirclePattern();
+            } else if (style.pattern === 'waves') {
+                decorationPattern = generateWavePattern();
+            } else if (style.pattern === 'grid') {
+                decorationPattern = generateGridPattern();
+            } else if (style.pattern === 'brush') {
+                decorationPattern = generateBrushPattern();
+            } else if (style.pattern === 'fish') {
+                decorationPattern = generateFishPattern();
+            }
+            
+            // 创建基于SVG的备用海报，丰富色彩和样式
+            const svgContent = `
+                <svg width="400" height="400" viewBox="0 0 400 400" style="width:100%;height:100%;">
+                    <!-- 渐变背景 -->
+                    <defs>
+                        <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="${hexToRgb(bgColor.split(',')[0].split('(')[1].trim())}" stop-opacity="0.9"/>
+                            <stop offset="50%" stop-color="${hexToRgb(bgColor.split(',')[1].trim())}" stop-opacity="0.9"/>
+                            <stop offset="100%" stop-color="${hexToRgb(bgColor.split(',')[2].split(')')[0].trim())}" stop-opacity="0.9"/>
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- 背景 -->
+                    <rect x="0" y="0" width="400" height="400" fill="url(#bgGradient)" rx="12" ry="12"/>
+                    
+                    <!-- 装饰图案 -->
+                    ${decorationPattern}
+                    
+                    <!-- 精美边框 -->
+                    <rect x="5" y="5" width="390" height="390" fill="none" stroke="${style.border}" stroke-width="3" rx="10" ry="10"/>
+                    <rect x="10" y="10" width="380" height="380" fill="none" stroke="${accentColor}" stroke-width="1" rx="8" ry="8"/>
+                    
+                    <!-- 非遗元素示意图（简化版） -->
+                    <g transform="translate(200, 180)">
+                        ${getHeritageSymbol(heritage.name)}
+                    </g>
+                    
+                    <!-- 标题文字 - 非遗产品名称 -->
+                    <text x="200" y="280" text-anchor="middle" font-family="'Ma Shan Zheng', cursive" font-size="22" font-weight="bold" fill="${style.border}" stroke="#fff" stroke-width="0.5">${heritage.name}</text>
+                    
+                    <!-- 关系主题 -->
+                    <text x="200" y="320" text-anchor="middle" font-family="'SimSun', '宋体', serif" font-size="14" fill="${accentColor}">${currentRelationType === '闺蜜' ? '闺蜜情谊' : '情侣爱情'}</text>
+                </svg>
+            `;
+            
+            // 在页面上显示备用海报
+            document.getElementById('posterContainer').innerHTML = `
+                <div style="position:relative;width:100%;height:100%;${style.border ? `border:${style.border};` : ''} border-radius:12px;">
+                    ${svgContent}
+                    <!-- 非遗产品标识 -->
+                    <div style="position:absolute;top:20px;left:20px;background:linear-gradient(135deg,#c8102e,#8a1a2c);color:white;padding:10px 20px;border-radius:20px;font-weight:bold;">
+                        ${heritage.name}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('resultDesc').textContent = `你们的关系如同${heritage.name}一般，${posterDesc.split('——')[1] || posterDesc}`;
+            document.getElementById('heritageMark').textContent = `非遗灵感：${heritage.name}`;
+            document.getElementById('toIntrodBtn').style.display = 'block';
+            document.getElementById('generateBtn').style.display = 'none';
+        }
+        
+        // 根据海报描述提取色彩信息
+        function getColorPaletteFromPosterDesc(posterDesc) {
+            // 常见色彩关键词和对应的色彩方案
+            const colorKeywords = {
+                '红金': '红色和金色为主，辅以白色和黑色',
+                '蓝渐变': '蓝色系渐变，从深蓝到浅蓝，配以白色和淡紫色',
+                '陶米白': '米色、淡青色、棕色为主，展现陶瓷质感',
+                '绿×橙': '绿色和橙色对比，明亮活泼',
+                '红': '红色系为主，搭配白色和金色',
+                '金箔': '金色、淡黄色、米色为主，营造奢华感',
+                '靛蓝': '靛蓝色为主，搭配金色和象牙白',
+                '水墨': '黑色、灰色、白色为主，辅以淡蓝色或淡红色点缀',
+                '撞色': '高对比度色彩组合，如红与绿、蓝与橙等',
+                '渐变': '柔和的色彩过渡，如粉到紫、蓝到绿等'
+            };
+            
+            // 检查海报描述中是否包含已知的色彩关键词
+            for (const [keyword, palette] of Object.entries(colorKeywords)) {
+                if (posterDesc.includes(keyword)) {
+                    return palette;
+                }
+            }
+            
+            // 默认色彩方案
+            return '明亮活泼的色彩组合，使用多种鲜艳色彩但保持整体协调';
+        }
+        
+        // 根据非遗类型选择合适的艺术风格
+        function getArtStyleForHeritage(heritageName) {
+            // 艺术风格列表
+            const artStyles = [
+                '色彩多样的中国画风格',
+                '宋代美学',
+                '新中式东方奇幻',
+                '东方神话风格',
+                '大写意',
+                '烫金丝线纹理',
+                '油画',
+                '大面积晕染',
+                '梦核美学',
+                '金箔岩彩'
+            ];
+            
+            // 随机选择一种风格
+            const randomIndex = Math.floor(Math.random() * artStyles.length);
+            return artStyles[randomIndex];
+        }
+        
+        // 辅助函数：将十六进制颜色转换为RGB格式
+        function hexToRgb(hex) {
+            // 移除可能的#号
+            hex = hex.replace('#', '');
+            
+            // 解析RGB值
+            const r = parseInt(hex.substring(0, 2), 16);
+            const g = parseInt(hex.substring(2, 4), 16);
+            const b = parseInt(hex.substring(4, 6), 16);
+            
+            return `rgb(${r},${g},${b})`;
+        }
+        
+        // 生成点装饰图案
+        function generateDotPattern() {
+            let dots = '';
+            for (let i = 0; i < 20; i++) {
+                const x = Math.random() * 400;
+                const y = Math.random() * 400;
+                const size = 2 + Math.random() * 4;
+                dots += `<circle cx="${x}" cy="${y}" r="${size}" fill="rgba(255,255,255,0.3)" />\n`;
+            }
+            return dots;
+        }
+        
+        // 生成线条装饰图案
+        function generateLinePattern() {
+            let lines = '';
+            for (let i = 0; i < 10; i++) {
+                const x1 = Math.random() * 400;
+                const y1 = Math.random() * 400;
+                const x2 = x1 + (Math.random() - 0.5) * 100;
+                const y2 = y1 + (Math.random() - 0.5) * 100;
+                lines += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="rgba(255,255,255,0.2)" stroke-width="${1 + Math.random()}" />\n`;
+            }
+            return lines;
+        }
+        
+        // 生成圆形装饰图案
+        function generateCirclePattern() {
+            let circles = '';
+            for (let i = 0; i < 8; i++) {
+                const x = Math.random() * 400;
+                const y = Math.random() * 400;
+                const r = 10 + Math.random() * 30;
+                circles += `<circle cx="${x}" cy="${y}" r="${r}" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1" />\n`;
+            }
+            return circles;
+        }
+        
+        // 生成波浪装饰图案
+        function generateWavePattern() {
+            let waves = '';
+            for (let i = 0; i < 3; i++) {
+                const y = 80 + i * 120;
+                waves += `<path d="M0,${y} Q100,${y-30} 200,${y} T400,${y}" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2" />\n`;
+            }
+            return waves;
+        }
+        
+        // 生成网格装饰图案
+        function generateGridPattern() {
+            let grid = '';
+            // 垂直网格线
+            for (let i = 0; i <= 8; i++) {
+                const x = i * 50;
+                grid += `<line x1="${x}" y1="0" x2="${x}" y2="400" stroke="rgba(255,255,255,0.1)" stroke-width="1" />\n`;
+            }
+            // 水平网格线
+            for (let i = 0; i <= 8; i++) {
+                const y = i * 50;
+                grid += `<line x1="0" y1="${y}" x2="400" y2="${y}" stroke="rgba(255,255,255,0.1)" stroke-width="1" />\n`;
+            }
+            return grid;
+        }
+        
+        // 生成画笔风格装饰图案
+        function generateBrushPattern() {
+            let brush = '';
+            for (let i = 0; i < 5; i++) {
+                const x1 = 20 + Math.random() * 360;
+                const y1 = 20 + Math.random() * 360;
+                const x2 = x1 + (Math.random() - 0.5) * 150;
+                const y2 = y1 + (Math.random() - 0.5) * 150;
+                brush += `<path d="M${x1},${y1} C${x1 + (Math.random() - 0.5) * 50},${y1 + (Math.random() - 0.5) * 50} ${x2 + (Math.random() - 0.5) * 50},${y2 + (Math.random() - 0.5) * 50} ${x2},${y2}" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="${2 + Math.random() * 3}" stroke-linecap="round" />\n`;
+            }
+            return brush;
+        }
+        
+        // 生成鱼形装饰图案
+        function generateFishPattern() {
+            let fish = '';
+            for (let i = 0; i < 5; i++) {
+                const x = 50 + Math.random() * 300;
+                const y = 50 + Math.random() * 300;
+                const scale = 0.5 + Math.random() * 0.5;
+                const rotation = Math.random() * 360;
+                fish += `<g transform="translate(${x},${y}) rotate(${rotation}) scale(${scale})">\n`;
+                fish += `<path d="M0,-10 C15,-15 20,0 15,15 C10,20 0,25 -10,20 C-15,15 -15,-15 0,-10 Z" fill="rgba(255,255,255,0.2)" />\n`;
+                fish += `<path d="M15,0 L30,5 L25,0 L30,-5 Z" fill="rgba(255,255,255,0.2)" />\n`;
+                fish += `</g>\n`;
+            }
+            return fish;
+        }
+        
+        // 根据非遗类型返回简化的SVG图标
+        function getHeritageSymbol(heritageName) {
+            // 为每种非遗生成一个简化的SVG表示
+            const symbols = {
+                '剪纸': `
+                    <path d="M0,-50 L30,-10 L10,40 L-10,40 L-30,-10 Z" fill="#c8102e" opacity="0.8"/>
+                    <path d="M-20,-40 L20,-40 L20,-20 L-20,-20 Z" fill="#fff"/>
+                    <path d="M-10,-35 L10,-35 L10,-25 L-10,-25 Z" fill="#c8102e"/>
+                `,
+                '鲁绣': `
+                    <rect x="-40" y="-30" width="80" height="60" fill="#8a1a2c" opacity="0.7"/>
+                    <circle cx="0" cy="0" r="20" fill="#fff" opacity="0.9"/>
+                    <path d="M-15,0 L15,0" stroke="#c8102e" stroke-width="2"/>
+                    <path d="M0,-15 L0,15" stroke="#c8102e" stroke-width="2"/>
+                `,
+                '淄博陶瓷': `
+                    <circle cx="0" cy="0" r="40" fill="rgba(255, 255, 255, 0.8)"/>
+                    <circle cx="0" cy="0" r="35" fill="none" stroke="#d4b886" stroke-width="3"/>
+                    <circle cx="0" cy="0" r="25" fill="none" stroke="#d4b886" stroke-width="2"/>
+                    <path d="M-40,0 A40,40 0 0,1 40,0" fill="none" stroke="#d4b886" stroke-width="2"/>
+                    <path d="M-30,0 A30,30 0 0,1 30,0" fill="none" stroke="#d4b886" stroke-width="1"/>
+                `,
+                '潍坊风筝': `
+                    <path d="M0,-40 L30,0 L0,40 L-30,0 Z" fill="#4E7A51" opacity="0.8"/>
+                    <path d="M0,40 L0,70" stroke="#8b4513" stroke-width="2"/>
+                    <path d="M0,50 L-10,55" stroke="#8b4513" stroke-width="1"/>
+                    <path d="M0,50 L10,55" stroke="#8b4513" stroke-width="1"/>
+                    <path d="M0,60 L-10,65" stroke="#8b4513" stroke-width="1"/>
+                    <path d="M0,60 L10,65" stroke="#8b4513" stroke-width="1"/>
+                `,
+                '掐丝珐琅': `
+                    <rect x="-40" y="-40" width="80" height="80" fill="rgba(255, 215, 0, 0.2)"/>
+                    <rect x="-38" y="-38" width="76" height="76" fill="none" stroke="#c8102e" stroke-width="2" stroke-dasharray="10,5"/>
+                    <rect x="-30" y="-30" width="60" height="60" fill="none" stroke="#8a1a2c" stroke-width="1"/>
+                    <path d="M-40,-40 L40,40" stroke="#c8102e" stroke-width="1"/>
+                    <path d="M40,-40 L-40,40" stroke="#c8102e" stroke-width="1"/>
+                `,
+                '中药香囊': `
+                    <path d="M-30,-20 Q0,-40 30,-20 Q40,0 30,20 Q0,40 -30,20 Q-40,0 -30,-20 Z" fill="#2E86AB" opacity="0.7"/>
+                    <path d="M-25,-15 L25,-15" stroke="#fff" stroke-width="1"/>
+                    <path d="M-25,-5 L25,-5" stroke="#fff" stroke-width="1"/>
+                    <path d="M-25,5 L25,5" stroke="#fff" stroke-width="1"/>
+                    <path d="M-25,15 L25,15" stroke="#fff" stroke-width="1"/>
+                    <path d="M0,-20 L0,-40" stroke="#8b4513" stroke-width="1"/>
+                `,
+                '大漆': `
+                    <path d="M-40,-20 L40,-20 Q50,5 40,30 Q-40,30 -50,5 Z" fill="#C7000B" opacity="0.7"/>
+                    <path d="M-35,-15 L35,-15 Q40,5 35,25 Q-35,25 -40,5 Z" fill="none" stroke="#000" stroke-width="1" stroke-dasharray="5,3"/>
+                    <circle cx="0" cy="0" r="10" fill="rgba(255, 255, 255, 0.3)"/>
+                `,
+                '鱼灯笼': `
+                    <path d="M-40,0 C-20,-20 20,-20 40,0 C20,20 -20,20 -40,0 Z" fill="#8fd3f4" opacity="0.8"/>
+                    <path d="M-40,0 L-50,10 L-40,20 L-30,10 Z" fill="#000" opacity="0.7"/>
+                    <circle cx="-25" cy="-5" r="3" fill="#fff"/>
+                    <circle cx="-25" cy="5" r="3" fill="#fff"/>
+                    <path d="M30,0 L50,0" stroke="#8b4513" stroke-width="2"/>
+                `
+            };
+            
+            return symbols[heritageName] || `
+                <circle cx="0" cy="0" r="30" fill="rgba(0,0,0,0.1)"/>
+                <circle cx="0" cy="0" r="20" fill="rgba(0,0,0,0.05)"/>
+                <text x="0" y="5" text-anchor="middle" font-size="12" fill="#8b4513">非遗</text>
+            `;
+        }
+        
+        // 调用火山方舟AI API函数
+        async function callArkAIAPI(prompt) {
+            // 直接使用用户提供的API密钥
+            const apiKey = '1bbf3930-c848-4d84-b1b5-417b1f2142ab';
+            const url = 'https://ark.cn-beijing.volces.com/api/v3/images/generations';
+            const requestBody = {
+                model: 'ep-20251005193442-stc97',
+                prompt: prompt,
+                response_format: 'url',
+                size: '1024x1024',
+                guidance_scale: 3,
+                watermark: true
+            };
+            
+            console.log('API调用参数:', {
+                url: url,
+                requestBody: requestBody,
+                hasApiKey: !!apiKey
+            });
+            
+            // 添加timeout设置和更好的错误处理
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => {
+                console.log('API调用超时');
+                controller.abort();
+            }, 60000); // 60秒超时
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`,
+                        'Accept': '*/*',
+                        'Origin': window.location.origin,
+                        'Referer': window.location.href
+                    },
+                    body: JSON.stringify(requestBody),
+                    mode: 'cors', // 明确设置CORS模式
+                    credentials: 'omit', // 不发送凭证
+                    signal: controller.signal,
+                    cache: 'no-cache',
+                    redirect: 'follow',
+                    referrerPolicy: 'no-referrer'
+                });
+                
+                clearTimeout(timeoutId);
+                
+                console.log('API响应状态:', response.status, response.statusText);
+                console.log('API响应头:', Object.fromEntries(response.headers.entries()));
+                
+                if (!response.ok) {
+                    try {
+                        const errorData = await response.json();
+                        console.error('API错误详情:', errorData);
+                        throw new Error(errorData.error?.message || `HTTP错误 ${response.status}：${response.statusText}`);
+                    } catch (jsonError) {
+                        console.error('解析错误响应失败:', jsonError);
+                        // 获取原始错误文本
+                        const errorText = await response.text().catch(() => '无法获取错误详情');
+                        console.error('原始错误响应:', errorText);
+                        throw new Error(`HTTP错误 ${response.status}：${response.statusText} - ${errorText}`);
+                    }
+                }
+                
+                const result = await response.json();
+                console.log('API调用成功，结果:', result);
+                return result;
+            } catch (error) {
+                clearTimeout(timeoutId);
+                
+                if (error.name === 'AbortError') {
+                    console.error('API调用超时（60秒）:', error);
+                    throw new Error('生成海报超时，请检查网络连接后重试');
+                } else if (error.message.includes('Failed to fetch')) {
+                    console.error('网络连接错误:', error);
+                    throw new Error('网络连接失败，请检查网络设置\n可能的原因：\n1. API URL 不正确\n2. 网络连接问题\n3. 浏览器安全策略限制\n4. API Key 无效');
+                } else {
+                    console.error('API调用失败:', error);
+                    throw error;
+                }
+            }
+        }
+
+        // 查看非遗详情按钮事件 - 修改为显示文本链接
+        document.getElementById('toIntrodBtn').addEventListener('click', () => {
+            const optionCount = { A: 0, B: 0, C: 0, D: 0 };
+            for (let i = 1; i <= 5; i++) {
+                const opt = selectedOptions[i].option;
+                optionCount[opt]++;
+            }
+            const maxOpt = Object.keys(optionCount).sort((a, b) => optionCount[b] - optionCount[a])[0];
+            const heritage = heritageInfo[currentRelation][maxOpt];
+            
+            // 详情页显示完整非遗解释和文本视频链接
+            document.getElementById('introdTitle').textContent = `${heritage.name} - 齐鲁非遗珍品`;
+            
+            // 丰富非遗文化解释和与亲密关系的关联性
+            let relationshipText = currentRelation === 'girl' ? 
+                '闺蜜之间的情谊如同精心制作的非遗作品，需要时间沉淀与用心维护' : 
+                '情侣之间的爱情恰似非遗传承，既有传统的底蕴又有创新的活力';
+            
+            // 为不同非遗产品提供更具体的文化内涵和与亲密关系的关联
+            const culturalConnotations = {
+                "潍坊风筝": "潍坊风筝是中国传统手工艺品的代表，有着悠久的历史和丰富的文化内涵。它不仅是一种玩具，更是艺术与工艺的完美结合。制作一只风筝需要经过设计、选料、扎骨架、糊纸面、绘画等多道工序，每一步都需要匠人的精心打磨。就如同闺蜜之间的友谊，需要细心呵护、真诚相待才能长久。风筝能够在天空中自由飞舞，象征着友谊的纯粹与自由。",
+                "淄博陶瓷": "淄博陶瓷是中国古老的传统工艺，以其精湛的技艺和绚丽的色彩闻名于世。陶瓷的制作过程需要高温熔炼和工匠的巧妙塑形，最终才能形成光彩夺目的成品。这种历经淬炼而绽放光彩的特性，正如同情侣之间的爱情，经过生活的磨砺和考验，才能愈发珍贵和美丽。陶瓷通透的质感也象征着爱情的纯粹和坦诚。",
+                "剪纸": "济南剪纸是山东地区特有的传统民间艺术，以其精湛的刀工和丰富的表现力著称。剪纸艺人用一把剪刀，在一张普通的纸上创造出千姿百态的图案。这种看似简单却蕴含深意的艺术形式，如同闺蜜之间的关系，表面平凡却充满内涵。剪纸作品通常象征着吉祥和美好，就像闺蜜之间相互祝福、共同成长的情谊。",
+                "鲁绣": "鲁绣是山东地区的传统刺绣工艺，历史悠久，工艺精湛。鲁绣以其精细的针法、丰富的色彩和独特的地方特色为名。刺绣需要艺人耐心细致地一针一线绣制，才能完成一件精美的作品。这种专注和坚持的精神，正如同情侣之间的爱情，需要双方用心经营、持之以恒。鲁绣作品常以花鸟、人物等为题材，象征着对美好生活的向往和对爱情的赞美。",
+                "木版年画": "木版年画是中国传统民间艺术的瑰宝，具有浓郁的乡土气息和文化内涵。木版年画的制作过程包括绘图、刻版、印刷等多个环节，每一步都需要工匠的精湛技艺。这种传统工艺能够传承至今，依靠的是艺人们坚守和创新。这正如同亲密关系中的相互包容和共同成长，既要保留传统的美好，又要适应时代的变化。木版年画通常以喜庆吉祥的题材为主，象征着对幸福生活的追求。",
+                "掐丝珐琅": "掐丝珐琅是一种集金属工艺、陶瓷工艺和绘画艺术于一体的传统工艺。它以铜为胎，用细铜丝掐成各种图案，然后填充珐琅釉料，经高温烧制而成。掐丝珐琅作品色彩鲜艳、图案精美，具有极大的艺术价值。这种工艺的复杂性和艺术性，正如同亲密关系的多样性和丰富性。掐丝珐琅历经岁月洗礼而依然光彩夺目，象征着爱情的永恒和珍贵。",
+                "泰山玉": "泰山玉是山东地区的特色玉石，因产于泰山而得名。泰山玉质地细腻、色泽温润，是中国传统玉文化的重要组成部分。玉石的形成需要经过漫长的地质过程和自然洗礼，才能成为珍贵的宝石。这正如同亲密关系的发展，需要时间的沉淀和生活的磨砺，才能愈发坚定和珍贵。在中国文化中，玉象征着纯洁、坚韧和美好，恰如闺蜜之间真挚的情谊和情侣之间纯洁的爱情。",
+                "大漆": "大漆工艺是中国传统的髹饰工艺，有着数百年的历史。大漆制品以其独特的质感、深沉的色调和耐久的特性而著称。大漆工艺需要经过多道工序，包括制漆、髹涂、打磨等，每一步都需要艺人的精心操作。这种对工艺的执着和追求，正如同亲密关系中的用心经营和不断完善。大漆制品随着时间的推移会愈发温润美丽，象征着爱情和友情在岁月中不断升华的美好。",
+                "草编": "草编是中国传统手工艺，以柔韧的草本植物为原料，经过巧妙编织而成。草编工艺历史悠久，种类繁多，包括草席、草帽、草包等日常生活用品。草编作品自然质朴、坚韧耐用，体现了劳动人民的智慧和创造力。草编工艺看似简单，实则需要艺人熟练掌握各种编织技巧，才能创作出精美实用的作品。这种看似松散却结构紧密的特性，正如同兄弟之间看似随意却坚实可靠的情谊。",
+                "螺钿": "螺钿是一种传统镶嵌工艺，将贝壳薄片镶嵌在器物表面，形成精美图案。螺钿工艺历史悠久，早在商周时期就已经出现。螺钿作品流光溢彩、层次丰富，具有极高的艺术价值。制作螺钿作品需要经过选材、切割、打磨、镶嵌等多道工序，每一步都需要艺人的精湛技艺和耐心细致。螺钿工艺通过不同贝壳的组合创造出丰富多彩的图案，这正如同兄弟之间各有所长、相互补充，共同创造出美好的生活。",
+                "烧箔画": "烧箔画是一种独特的传统工艺，通过灼烧金箔创造出富有层次感的画面。烧箔画以其独特的艺术表现力和强烈的视觉冲击力而著称。制作烧箔画需要艺人熟练掌握火候和灼烧技巧，才能在金箔上创造出各种纹理和效果。这种通过减法创造艺术的工艺，体现了中国传统美学中的'留白'理念。烧箔画简洁利落、纯粹豁达的风格，正如同兄弟之间坦诚相待、去伪存真的情谊。"
+            };
+            
+            const culturalText = culturalConnotations[heritage.name] || heritage.desc;
+            
+            let extendedDesc = culturalText + `\n\n${relationshipText}。${heritage.name}的制作过程需要耐心、专注和匠心，每一件作品都凝聚了创作者的智慧和情感。这与维护亲密关系的道理不谋而合——需要双方的理解、包容和付出。\n\n在现代快节奏的生活中，${heritage.name}这样的传统工艺提醒我们要放慢脚步，用心感受生活中的美好。同样，亲密关系也需要我们用心经营，珍惜彼此的陪伴，共同创造美好的回忆。\n\n通过了解${heritage.name}，我们不仅能够欣赏到传统工艺的魅力，还能从中汲取到维护亲密关系的智慧和力量。`;
+            
+            document.getElementById('introdDesc').textContent = extendedDesc;
+            document.getElementById('heritageImage').src = heritage.image;
+            document.getElementById('buyLink').href = heritage.link;
+            
+            // 修改为显示文本链接而非视频，并添加移动设备适配
+            document.getElementById('videoContainer').innerHTML = `
+                <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;background:rgba(245,245,245,0.7);border-radius:12px;padding:15px;">
+                    <div style="font-size:16px;font-weight:bold;margin-bottom:12px;text-align:center;">非遗视频链接</div>
+                    <a href="${heritage.video}" target="_blank" style="text-decoration:none;color:#c8102e;padding:12px 24px;border:2px solid #c8102e;border-radius:20px;background-color:#fff;transition:all 0.3s ease;width:90%;max-width:300px;text-align:center;">
+                        点击查看${heritage.name}视频
+                    </a>
+                    <div style="margin-top:10px;text-align:center;font-size:14px;color:#666;word-break:break-all;padding:0 10px;">复制链接：${heritage.video}</div>
+                </div>
+            `;
+            
+            document.getElementById('resultPage').style.display = 'none';
+            document.getElementById('introdPage').style.display = 'block';
+        });
+
+        // 返回结果页按钮事件
+        document.getElementById('backBtn').addEventListener('click', () => {
+            document.getElementById('introdPage').style.display = 'none';
+            document.getElementById('resultPage').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
+
+
+
+
